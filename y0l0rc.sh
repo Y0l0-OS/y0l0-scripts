@@ -27,3 +27,5 @@ _dpkg_owning_packages_withfiles() { _dpkg_installed_packages|while read pkg ; do
 ##dpkg list package names that have files in directory 
 _dpkg_owning_packages() { _dpkg_installed_packages|grep -v deinstall|cut -f1|while read pkg ; do dpkg -L $pkg|grep ^$1|sed 's/^/'$pkg'\t/g' ; done |cut -f1|uniq ; } ;
 
+##reinstall packages that installe files in directory
+_apt_reinstall_directory() { sudo apt-get install --reinstall $(_dpkg_owning_packages $1) ; } ;
